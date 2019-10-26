@@ -2,22 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameGrid : MonoBehaviour {
+public class PlayerController : MonoBehaviour {
 
-    Vector2 gridSize;
-    int cellSize = 10;
+    float distanceMultiplyer = 10;
 
     // Start is called before the first frame update
     void Start () {
-        gridSize = new Vector2 (cellSize * 10, cellSize * 20);
+
     }
 
     // Update is called once per frame
     void Update () {
-
-    }
-
-    void GenerateGrid () {
 
     }
 }
