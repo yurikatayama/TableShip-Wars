@@ -6,5 +6,6 @@ using UnityEngine;
 public class Naves : ScriptableObject {
 
     public int life, actions, damage;
+    public Vector2 position;
 
 }
