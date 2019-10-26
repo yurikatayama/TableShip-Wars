@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu (fileName = "Naves", menuName = "TableShip-Wars/Naves", order = 0)]
 public class Naves : ScriptableObject {
 
-    public int life, actions, damage;
+    public int life, speed, damage;
     public Vector2 position;
 
 }
