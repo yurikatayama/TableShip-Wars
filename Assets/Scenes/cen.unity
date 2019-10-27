@@ -1186,7 +1186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 083932a96267d824c8bbb8fa8b07d654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  empty: {fileID: 21300000, guid: 9c828f42018d65641bf664fc33b8fb58, type: 3}
+  empty: {fileID: 8338317094824361491, guid: fff8315ade81963468eb09b0aaf87261, type: 3}
   grid: {fileID: 94941839}
   squadSize: 4
   actionCounter: {fileID: 1573885541}
@@ -1230,7 +1230,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
