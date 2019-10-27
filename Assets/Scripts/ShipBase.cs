@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ShipBase : MonoBehaviour {
     private int currentTile;
+    private int health;
     public Naves nave;
     void Start () {
 
@@ -11,8 +12,18 @@ public class ShipBase : MonoBehaviour {
         currentTile = i;
         transform.position = grid.GetCell (currentTile);
     }
+    public void Set(Naves n){
+        nave=n;
+        health=n.life;
+        SpriteRenderer sp=GetComponent<SpriteRenderer>();
+        sp.sprite=n.sprite;
+        sp.color=n.color;
+    }
     public int getSpeed () {
-        return 2;
+        return nave.speed;
+    }
+    public float Life(){
+        return (float)health/(float)nave.life;
     }
     public void SetTile (int i) {
         currentTile = i;

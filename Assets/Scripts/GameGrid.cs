@@ -18,6 +18,7 @@ public class GameGrid : MonoBehaviour
             SpriteRenderer sp=go.AddComponent<SpriteRenderer>();
             sp.sprite=tile;
             sp.color=Color.green;
+            sp.sortingLayerName="Grid";
             tiles.Add(sp);
             go.transform.position=GetCell(i);
             go.transform.parent=transform;
