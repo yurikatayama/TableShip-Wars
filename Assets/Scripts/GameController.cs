@@ -17,7 +17,13 @@ public class GameController : MonoBehaviour {
     [SerializeField]
     Button confirmButtom;
     [SerializeField]
+    private Image motherHealth,enemyHealth;
+    [SerializeField]
     GameObject classGroup;
+    [SerializeField]
+    private ParticleSystem explosion;
+    [SerializeField]
+    private Material impact;
     [SerializeField]
     private Naves[] naves;
     private ShipBase selected;
@@ -92,12 +98,26 @@ public class GameController : MonoBehaviour {
 
             if(ship.Outside())ship.Set(naves[i]);
         }
-
+    }
+    private void ConfirmShot(Vector3 v){
+        explosion.transform.position=v;
+        explosion.Emit(1);
+        enabled=true;
+        enemyHealth.fillAmount-=0.1f*selected.nave.damage;
     }
     public void Fire () {
         actions--;
         actionCounter.text = "Actions:" + actions;
-        Debug.Log ("firing " + selected.name);
+        GameObject go=new GameObject("shot");
+        go.AddComponent<SpriteRenderer>().sprite=selected.nave.shot;
+        Vector3 v=selected.transform.position;
+        ShipBase ship=GetInLine(selected.Tile()%grid.countX);
+        if(ship)v.y=ship.transform.position.y;
+        else v.y=8;
+        go.AddComponent<Shot>().Set(v,ConfirmShot);
+        go.transform.position=selected.transform.position;
+        impact.mainTexture=selected.nave.explosion;
+        enabled=false;
     }
     public void ConfirmMove () {
         if(update==PlayerTurn){
