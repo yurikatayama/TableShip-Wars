@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ShipBase : MonoBehaviour {
     private int currentTile;
-    private int health;
+    private int health=3;
     public Naves nave;
     void Start () {
 
@@ -24,6 +24,10 @@ public class ShipBase : MonoBehaviour {
     }
     public float Life(){
         return (float)health/(float)nave.life;
+    }
+    public void Damage(int i){
+        health-=i;
+        if(health<=0)Destroy(gameObject);
     }
     public void SetTile (int i) {
         currentTile = i;

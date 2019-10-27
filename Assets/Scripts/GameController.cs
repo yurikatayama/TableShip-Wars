@@ -11,13 +11,11 @@ public class GameController : MonoBehaviour {
     [SerializeField]
     private int squadSize = 4;
     [SerializeField]
-    Text actionCounter;
-    [SerializeField]
     Button fireButtom;
     [SerializeField]
     Button confirmButtom;
     [SerializeField]
-    private Image motherHealth,enemyHealth;
+    private Image motherHealth,enemyHealth,actionCounter;
     [SerializeField]
     GameObject classGroup;
     [SerializeField]
@@ -26,7 +24,7 @@ public class GameController : MonoBehaviour {
     private Material impact;
     [SerializeField]
     private Naves[] naves;
-    private ShipBase selected;
+    private ShipBase selected,target;
     Camera cam;
     private int turnId;
     private int actions;
@@ -82,7 +80,7 @@ public class GameController : MonoBehaviour {
             update = PlayerTurn;
             classGroup.SetActive(false);
             actions = 5;
-            actionCounter.text = "Actions:" + actions;
+            actionCounter.fillAmount = actions/5f;
         }
     }
     ShipBase GetInLine (int x) {
@@ -103,16 +101,21 @@ public class GameController : MonoBehaviour {
         explosion.transform.position=v;
         explosion.Emit(1);
         enabled=true;
-        enemyHealth.fillAmount-=0.1f*selected.nave.damage;
+        if(target){
+            target.Damage(selected.nave.damage);
+            if(target.Life()<=0)enemySquad.Remove(target);
+        }
+        else enemyHealth.fillAmount-=0.1f*selected.nave.damage;
     }
     public void Fire () {
         actions--;
-        actionCounter.text = "Actions:" + actions;
+        fireButtom.interactable=actions>0;
+        actionCounter.fillAmount = actions/5f;
         GameObject go=new GameObject("shot");
         go.AddComponent<SpriteRenderer>().sprite=selected.nave.shot;
         Vector3 v=selected.transform.position;
-        ShipBase ship=GetInLine(selected.Tile()%grid.countX);
-        if(ship)v.y=ship.transform.position.y;
+        target=GetInLine(selected.Tile()%grid.countX);
+        if(target)v.y=target.transform.position.y;
         else v.y=8;
         go.AddComponent<Shot>().Set(v,ConfirmShot);
         go.transform.position=selected.transform.position;
@@ -123,7 +126,7 @@ public class GameController : MonoBehaviour {
         if(update==PlayerTurn){
             if (selectedTile != selected.Tile ()) {
                 actions--;
-                actionCounter.text = "Actions:" + actions;
+                actionCounter.fillAmount = actions/5f;
                 selectedTile = selected.Tile ();
                 foreach (int i in moves)
                     grid.GetRenderer (i).color = Color.green;
@@ -131,7 +134,7 @@ public class GameController : MonoBehaviour {
                 confirmButtom.interactable = false;
                 moves.Add (selectedTile);
                 grid.GetRenderer (selectedTile).color = Color.yellow;
-                fireButtom.interactable=true;
+                fireButtom.interactable=actions>0;
             }
         }else{
             if(selected)selected.transform.localScale = Vector3.one;
@@ -146,9 +149,9 @@ public class GameController : MonoBehaviour {
         }
     }
     void PlayerTurn () {
-        if (selected && Input.GetMouseButton (0)) {
+        if (selected && Input.GetMouseButton (0) && actions>0) {
             fireButtom.interactable=actions>0 && moves.Count<2;
-            selected.transform.localScale = Vector3.one * (1 + Mathf.Abs (Mathf.Sin (Time.time)) / 2);
+            //selected.transform.localScale = Vector3.one * (1 + Mathf.Abs (Mathf.Sin (Time.time)) / 2);
             Vector3 v = cam.ScreenToWorldPoint (Input.mousePosition) / grid.celSize;
             int difx = (int) (v.x + 0.5f) - selected.Tile () % grid.countX;
             int dify = (int) (v.y + 0.5f) - selected.Tile () / grid.countX;
@@ -167,7 +170,7 @@ public class GameController : MonoBehaviour {
                     }
                 }
             }
-            confirmButtom.interactable = moves.Count > 1;
+            confirmButtom.interactable = moves.Count > 1 && actions>0;
             /*int i=selected.Tile();
             if(Input.GetKeyDown(KeyCode.RightArrow))selected.Move(1,grid,squad);
             if(Input.GetKeyDown(KeyCode.LeftArrow))selected.Move(-1,grid,squad);
@@ -179,7 +182,7 @@ public class GameController : MonoBehaviour {
                         else selected.SetTile(i,grid);
             }*/
         }
-        if (Input.GetMouseButtonDown (0)) {
+        if (Input.GetMouseButtonDown(0)) {
             Vector3 v = cam.ScreenToWorldPoint (Input.mousePosition);
             Collider2D col = Physics2D.OverlapPoint (new Vector2 (v.x, v.y));
             if (col) {
