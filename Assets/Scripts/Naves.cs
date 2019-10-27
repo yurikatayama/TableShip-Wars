@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu (fileName = "Naves", menuName = "TableShip-Wars/Naves", order = 0)]
+[CreateAssetMenu (fileName = "Nave", menuName = "TableShip Wars/Nave")]
 public class Naves : ScriptableObject {
 
-    public int life, speed, damage;
-    public Vector2 position;
+    public int life=2, speed=2, damage=2;
 
 }

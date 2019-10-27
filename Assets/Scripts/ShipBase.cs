@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ShipBase : MonoBehaviour {
     private int currentTile;
-    //public Naves nave;
+    public Naves nave;
     void Start () {
 
     }
