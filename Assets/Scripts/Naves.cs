@@ -13,9 +13,9 @@ using UnityEngine;
 struct Naves {
     public int life, speed, damage;
 
-    public Naves (int life, int speed, int damage) {
-        this.life = life;
-        this.speed = speed;
-        this.damage = damage;
-    }
+    // public Naves (int life, int speed, int damage) {
+    //     this.life = life;
+    //     this.speed = speed;
+    //     this.damage = damage;
+    // }
 }
