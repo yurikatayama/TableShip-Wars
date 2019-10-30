@@ -5,7 +5,6 @@ using UnityEngine;
 public class CanvasController : MonoBehaviour {
 
     Canvas mainCanvas;
-    
 
     // Start is called before the first frame update
     void Start () {
