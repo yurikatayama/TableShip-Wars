@@ -15,7 +15,7 @@ public class GameController : MonoBehaviour {
     [SerializeField]
     Button confirmButtom;
     [SerializeField]
-    private Image motherHealth,enemyHealth,actionCounter;
+    private Image motherHealth, enemyHealth, actionCounter;
     [SerializeField]
     GameObject classGroup;
     [SerializeField]
@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour {
     private Material impact;
     [SerializeField]
     private Naves[] naves;
-    private ShipBase selected,target;
+    private ShipBase selected, target;
     Camera cam;
     private int turnId;
     private int actions;
@@ -35,6 +35,7 @@ public class GameController : MonoBehaviour {
     public List<ShipBase> enemySquad = new List<ShipBase> ();
     public delegate void Del ();
     private Del update;
+
     void Start () {
         cam = GetComponent<Camera> ();
         for (int i = 1; i <= squadSize; i++) {
@@ -43,15 +44,15 @@ public class GameController : MonoBehaviour {
             go.AddComponent<SpriteRenderer> ().sprite = empty;
             go.AddComponent<BoxCollider2D> ();
             squad.Add (ship);
-            ship.SetTile (-i,grid);
-            ship.Set(naves[1]);
+            ship.SetTile (-i, grid);
+            ship.Set (naves[1]);
         }
-        selected=squad[0];
+        selected = squad[0];
         update = PlaceShip;
     }
     void Update () {
         update?.Invoke ();
-        if(selected)selected.transform.localScale = Vector3.one * (1 + Mathf.Abs (Mathf.Sin (Time.time)) / 2);
+        if (selected) selected.transform.localScale = Vector3.one * (1 + Mathf.Abs (Mathf.Sin (Time.time)) / 2);
     }
     void PlaceShip () {
         if (selected && Input.GetMouseButton (0)) {
@@ -60,27 +61,27 @@ public class GameController : MonoBehaviour {
             v += Vector3.one / 2;
             if (v.x >= 0 && v.x < grid.countX && v.y >= 0 && v.y < grid.countY) {
                 int i = (int) v.x + (int) v.y * grid.countX;
-                bool b=false;
-                foreach(ShipBase ship in squad){
-                    if(ship.Tile()==i)b=true;
+                bool b = false;
+                foreach (ShipBase ship in squad) {
+                    if (ship.Tile () == i) b = true;
                 }
-                if(!b){
-                    selected.SetTile(i,grid);
-                    confirmButtom.interactable=true;
+                if (!b) {
+                    selected.SetTile (i, grid);
+                    confirmButtom.interactable = true;
                 }
             }
             //if (Input.GetKeyDown (KeyCode.Space)) selected = null;
         } else {
             foreach (ShipBase s in squad) {
-                if (s.Outside ()){
+                if (s.Outside ()) {
                     return;
                 }
             }
-            if(selected)return;
+            if (selected) return;
             update = PlayerTurn;
-            classGroup.SetActive(false);
+            classGroup.SetActive (false);
             actions = 5;
-            actionCounter.fillAmount = actions/5f;
+            actionCounter.fillAmount = actions / 5f;
         }
     }
     ShipBase GetInLine (int x) {
@@ -90,43 +91,42 @@ public class GameController : MonoBehaviour {
         }
         return target;
     }
-    public void UnitID(int i){
-        selected.Set(naves[i]);
-        foreach(ShipBase ship in squad){
+    public void UnitID (int i) {
+        selected.Set (naves[i]);
+        foreach (ShipBase ship in squad) {
 
-            if(ship.Outside())ship.Set(naves[i]);
+            if (ship.Outside ()) ship.Set (naves[i]);
         }
     }
-    private void ConfirmShot(Vector3 v){
-        explosion.transform.position=v;
-        explosion.Emit(1);
-        enabled=true;
-        if(target){
-            target.Damage(selected.nave.damage);
-            if(target.Life()<=0)enemySquad.Remove(target);
-        }
-        else enemyHealth.fillAmount-=0.1f*selected.nave.damage;
+    private void ConfirmShot (Vector3 v) {
+        explosion.transform.position = v;
+        explosion.Emit (1);
+        enabled = true;
+        if (target) {
+            target.Damage (selected.nave.damage);
+            if (target.Life () <= 0) enemySquad.Remove (target);
+        } else enemyHealth.fillAmount -= 0.1f * selected.nave.damage;
     }
     public void Fire () {
         actions--;
-        fireButtom.interactable=actions>0;
-        actionCounter.fillAmount = actions/5f;
-        GameObject go=new GameObject("shot");
-        go.AddComponent<SpriteRenderer>().sprite=selected.nave.shot;
-        Vector3 v=selected.transform.position;
-        target=GetInLine(selected.Tile()%grid.countX);
-        if(target)v.y=target.transform.position.y;
-        else v.y=8;
-        go.AddComponent<Shot>().Set(v,ConfirmShot);
-        go.transform.position=selected.transform.position;
-        impact.mainTexture=selected.nave.explosion;
-        enabled=false;
+        fireButtom.interactable = actions > 0;
+        actionCounter.fillAmount = actions / 5f;
+        GameObject go = new GameObject ("shot");
+        go.AddComponent<SpriteRenderer> ().sprite = selected.nave.shot;
+        Vector3 v = selected.transform.position;
+        target = GetInLine (selected.Tile () % grid.countX);
+        if (target) v.y = target.transform.position.y;
+        else v.y = 8;
+        go.AddComponent<Shot> ().Set (v, ConfirmShot);
+        go.transform.position = selected.transform.position;
+        impact.mainTexture = selected.nave.explosion;
+        enabled = false;
     }
     public void ConfirmMove () {
-        if(update==PlayerTurn){
+        if (update == PlayerTurn) {
             if (selectedTile != selected.Tile ()) {
                 actions--;
-                actionCounter.fillAmount = actions/5f;
+                actionCounter.fillAmount = actions / 5f;
                 selectedTile = selected.Tile ();
                 foreach (int i in moves)
                     grid.GetRenderer (i).color = Color.green;
@@ -134,23 +134,23 @@ public class GameController : MonoBehaviour {
                 confirmButtom.interactable = false;
                 moves.Add (selectedTile);
                 grid.GetRenderer (selectedTile).color = Color.yellow;
-                fireButtom.interactable=actions>0;
+                fireButtom.interactable = actions > 0;
             }
-        }else{
-            if(selected)selected.transform.localScale = Vector3.one;
+        } else {
+            if (selected) selected.transform.localScale = Vector3.one;
             foreach (ShipBase s in squad) {
-                if (s.Outside ()){
+                if (s.Outside ()) {
                     selected = s;
                     return;
                 }
             }
-            selected=null;
-            confirmButtom.interactable=false;
+            selected = null;
+            confirmButtom.interactable = false;
         }
     }
     void PlayerTurn () {
-        if (selected && Input.GetMouseButton (0) && actions>0) {
-            fireButtom.interactable=actions>0 && moves.Count<2;
+        if (selected && Input.GetMouseButton (0) && actions > 0) {
+            fireButtom.interactable = actions > 0 && moves.Count < 2;
             //selected.transform.localScale = Vector3.one * (1 + Mathf.Abs (Mathf.Sin (Time.time)) / 2);
             Vector3 v = cam.ScreenToWorldPoint (Input.mousePosition) / grid.celSize;
             int difx = (int) (v.x + 0.5f) - selected.Tile () % grid.countX;
@@ -170,7 +170,7 @@ public class GameController : MonoBehaviour {
                     }
                 }
             }
-            confirmButtom.interactable = moves.Count > 1 && actions>0;
+            confirmButtom.interactable = moves.Count > 1 && actions > 0;
             /*int i=selected.Tile();
             if(Input.GetKeyDown(KeyCode.RightArrow))selected.Move(1,grid,squad);
             if(Input.GetKeyDown(KeyCode.LeftArrow))selected.Move(-1,grid,squad);
@@ -182,7 +182,7 @@ public class GameController : MonoBehaviour {
                         else selected.SetTile(i,grid);
             }*/
         }
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButtonDown (0)) {
             Vector3 v = cam.ScreenToWorldPoint (Input.mousePosition);
             Collider2D col = Physics2D.OverlapPoint (new Vector2 (v.x, v.y));
             if (col) {
