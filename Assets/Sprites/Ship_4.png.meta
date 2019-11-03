@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: fff8315ade81963468eb09b0aaf87261
+guid: 0c13327656aed0445b36b72027c38550
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5472876078462522581
-    second: Tier_2_0
+      213: 6738733967352536134
+    second: Ship_4_0
   - first:
-      213: 8338317094824361491
-    second: Tier_2_1
+      213: -6229923853518323798
+    second: Ship_4_1
   - first:
-      213: 7675977922870857941
-    second: Tier_2_2
+      213: -9135228910240616990
+    second: Ship_4_2
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -40,7 +40,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: -1
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -107,7 +107,28 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Tier_2_0
+      name: Ship_4_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 531b0943539fcdf4195e7b7be6bb35b9
+      internalID: 6738733967352536134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ship_4_1
       rect:
         serializedVersion: 2
         x: 0
@@ -121,35 +142,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 25251f03deb99b847a0cf641065439f4
-      internalID: 5472876078462522581
+      spriteID: 96956f0be29395c4bac008e875713fed
+      internalID: -6229923853518323798
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tier_2_1
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 64
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 36b37cc687b07c34598c5879883ecdfe
-      internalID: 8338317094824361491
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tier_2_2
+      name: Ship_4_2
       rect:
         serializedVersion: 2
         x: 0
@@ -163,8 +163,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c4c7146678315ae4cba1af389f0601bb
-      internalID: 7675977922870857941
+      spriteID: de997ac6a46db0c408a4e30457d213c0
+      internalID: -9135228910240616990
       vertices: []
       indices: 
       edges: []
