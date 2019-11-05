@@ -13351,8 +13351,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shader: {fileID: 4800000, guid: f05e602fd65cded489244dd9cad939f2, type: 3}
-  lineWidth: 0.43
-  hardness: 0.77
+  lineWidth: 0.29
+  hardness: 0.847
   displacementSpeed: 0.003
 --- !u!81 &2031634512
 AudioListener:
@@ -13382,14 +13382,14 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0.03333333
+    y: 0
     width: 1
-    height: 0.9332755
+    height: 1
   near clip plane: 0.01
   far clip plane: 1009.83
   field of view: 6.6393557
   orthographic: 1
-  orthographic size: 8.4140625
+  orthographic size: 9.679382
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -13401,7 +13401,7 @@ Camera:
   m_HDR: 1
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 1
+  m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
@@ -13431,9 +13431,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a160d838ff8b4b4693ac20007e008c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AssetsPPU: 64
-  m_RefResolutionX: 577
-  m_RefResolutionY: 1077
+  m_AssetsPPU: 128
+  m_RefResolutionX: 1080
+  m_RefResolutionY: 2160
   m_UpscaleRT: 0
   m_PixelSnapping: 1
   m_CropFrameX: 1
